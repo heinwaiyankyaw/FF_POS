@@ -95,9 +95,9 @@
                         <input type="hidden" name="orderId" class="orderId" value="{{ $order->id }}">
                         <td>{{ $order->user_id }}</td>
                         <td>{{ $order->user_name }}</td>
-                        <td>{{ $order->order_code }}</td>
+                        <td><a href="{{ route('admin#listInfo',$order->order_code) }}">{{ $order->order_code }}</a></td>
                         <td>{{ $order->created_at->format('M-j-Y') }}</td>
-                        <td>{{ $order->total_price }}</td>
+                        <td>{{ $order->total_price }} kyats</td>
                         <td>
                             <select class="form-control statusChange" name="status">
                                 <option value="0" @if($order->status == 0) selected @endif>Pending</option>

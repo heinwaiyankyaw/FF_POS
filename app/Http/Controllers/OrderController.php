@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderList;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -42,5 +43,11 @@ class OrderController extends Controller
     // ajax change status
     public function ajaxChangeStatus(Request $request){
         Order::where('id',$request->orderId)->update(['status'=>$request->status]);
+    }
+
+    // order List info
+    public function listInfo($orderCode){
+        $orderList = OrderList::where('order_code',$orderCode)->get();
+        return view('admin.order.productList');
     }
 }
