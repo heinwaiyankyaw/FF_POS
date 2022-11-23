@@ -9,69 +9,70 @@
         <div class="container-fluid">
             <div class="col-md-12">
                 <!-- DATA TABLE -->
-                <div class="table-data__tool">
-                    <div class="table-data__tool-left">
-                        <div class="overview-wrap">
-                            <h2 class="title-1">Orders List</h2>
-                        </div>
+
+        <div class="card mt-4 w-50 rounded shadow-sm pl-4">
+            <div class="card-body">
+                <div class="card-title" style="border-bottom:1px solid black;">
+                   <div class="pb-3">
+                    <h3><i class="fa-solid fa-clipboard mr-1"></i>Orders List</h3>
+                    <small class="text-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>Include Delivery Charges
+                    </small>
+                   </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-user mr-1"></i>UserName
+                    </div>
+                    <div class="col">
+                        {{ strtoupper($orderList[0]->user_name) }}
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="bg-white py-2 px-3 rounded shadow-sm text-center">
-                        <h3 class="mt-1"><i class="fa-solid fa-database"></i> 1</h3>
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-solid fa-barcode mr-1"></i>Order Code
                     </div>
-
-                    <div class="w-25">
-                        <form action="#" method="get">
-                            {{-- @csrf --}}
-                            <div class="input-group">
-                                <input type="text" name='key' class="form-control" placeholder="Search Here..." value="{{ request('key') }}">
-                                <button type="submit" class="text-white btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
-                            </div>
-                        </form>
+                    <div class="col">
+                        {{ $orderList[0]->order_code }}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <i class="fa-regular fa-clock mr-1"></i>Order Date
+                    </div>
+                    <div class="col">{{ $orderList[0]->created_at->format('M-d-Y') }}</div>
+                </div>
+                <div class="row">
+                    <div class="col"><i class="fa-regular fa-money-bill-1 mr-1"></i>Total</div>
+                    <div class="col">{{ $order->total_price }} kyats</div>
+                </div>
+            </div>
+        </div>
 
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2 text-center">
                 <thead>
                     <tr>
-                        <th>User ID</th>
-                        <th>User Name</th>
-                        <th>Order Code</th>
+                        <th>Order ID</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
                         <th>Order Date</th>
-                        <th>Amount</th>
-                        <th>Status</th>
+                        <th>Qty</th>
+                        <th>Ammount</th>
                     </tr>
                 </thead>
                 <tbody id="dataList">
-                    {{-- @foreach ($orders as $order)
-                    <tr class="tr-shadow">
-                        <input type="hidden" name="orderId" class="orderId" value="{{ $order->id }}">
-                        <td>{{ $order->user_id }}</td>
-                        <td>{{ $order->user_name }}</td>
-                        <td><a href="{{ route('admin#listInfo',$order->order_code) }}">{{ $order->order_code }}</a></td>
-                        <td>{{ $order->created_at->format('M-j-Y') }}</td>
-                        <td>{{ $order->total_price }} kyats</td>
-                        <td>
-                            <select class="form-control statusChange" name="status">
-                                <option value="0" @if($order->status == 0) selected @endif>Pending</option>
-                                <option value="1" @if($order->status == 1) selected @endif>Confirm</option>
-                                <option value="2" @if($order->status == 2) selected @endif>Reject</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="spacer"></tr>
-                    @endforeach --}}
-                    <tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                    </tr>
+                    @foreach($orderList as $ol)
+                        <tr class="tr-shadow">
+                            <td style="padding-top: 40px;">{{ $ol->id }}</td>
+                            <td style="width:50px;"><img src="{{ asset('storage/'.$ol->product_image) }}" alt="Prodcut Image" class="img-thumbnail shadow-sm"></td>
+                            <td>{{ $ol->product_name }}</td>
+                            <td>{{ $ol->created_at->format('M-j-Y') }}</td>
+                            <td>{{ $ol->qty }}</td>
+                            <td>{{ $ol->total }}</td>
+                        </tr>
+                        <tr class="spacer"></tr>
+                    @endforeach
                 </tbody>
             </table>
 
