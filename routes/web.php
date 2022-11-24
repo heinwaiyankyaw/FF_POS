@@ -73,6 +73,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('ajax/change/status',[OrderController::class,'ajaxChangeStatus'])->name('admin#ajaxChangeStatus');
             Route::get('listInfo/{orderCode}',[OrderController::class,'listInfo'])->name('admin#listInfo');
         });
+
+        // user list
+        Route::prefix('users')->group(function(){
+            Route::get('list',[UserController::class,'userList'])->name('admin#userList');
+            Route::get('change/userRole',[UserController::class,'changeUserRole'])->name('admin#changeUserRole');
+        });
     });
 
     //user

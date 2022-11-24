@@ -67,6 +67,11 @@
                                 <i class="fa-solid fa-list-check"></i> Orders List
                             </a>
                         </li>
+                        <li class="has-sub">
+                            <a href="{{ route("admin#userList") }}" class="js-arrow">
+                                <i class="fa-solid fa-people-group"></i>User List
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

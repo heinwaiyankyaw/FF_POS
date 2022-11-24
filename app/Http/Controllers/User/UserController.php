@@ -26,6 +26,16 @@ class UserController extends Controller
         return view('user.main.home', compact('pizzas', 'categories','cart','orders'));
     }
 
+    public function userList()
+    {
+        $users = User::where('role','user')->paginate('4');
+        return view('admin.user.list',compact('users'));
+    }
+
+    public function changeUserRole(Request $request){
+        logger($request->all());
+        User::where('id',$request->userId)->update(['role' => $request->status]);
+    }
     //change password page
     public function changePasswordPage()
     {

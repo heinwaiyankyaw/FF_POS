@@ -16,11 +16,6 @@
 
                         </div>
                     </div>
-                    <div class="table-data__tool-right">
-                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                            CSV download
-                        </button>
-                    </div>
                 </div>
 
                 @if(session('deleteSuccess'))
@@ -88,7 +83,7 @@
                                 <td class="col-3">{{ $admin->address }}</td>
                                 <td class="col-3">
                                     @if(Auth::user()->id == $admin->id)
-                                        <small>!</small>
+                                        <small class="text-danger">!NOTALLOWED</small>
                                     @else
                                     <select name="status" class="form-control roleStatus">
                                         <option value="admin">Admin</option>
