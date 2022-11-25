@@ -12,7 +12,7 @@
                 <div class="table-data__tool">
                     <div class="table-data__tool-left">
                         <div class="overview-wrap">
-                            <h2 class="title-1">Users List</h2>
+                            <h2 class="title-1">Contact List</h2>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     </table>
 
                     <div class="mt-3">
-                        {{-- {{ $users->links() }} --}}
+                        {{ $contacts->links() }}
                     </div>
                 </div>
             </div>

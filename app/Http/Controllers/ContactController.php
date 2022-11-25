@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     //admin session
     public function contactList(){
-        $contacts = Contact::get();
+        $contacts = Contact::orderBy('created_at','desc')->paginate('4');
         // dd($contacts->toArray());
         return view('admin.contact.list',compact('contacts'));
     }
