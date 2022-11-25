@@ -28,7 +28,7 @@
                             <small class="fas fa-star-half-alt"></small>
                             <small class="far fa-star"></small>
                         </div>
-                        <small class="pt-1">{{ $pizza->view_count }} <i class="fa-solid fa-eye"></i></small>
+                        <small class="pt-1"> <i class="fa-solid fa-eye"></i> {{ $pizza->view_count + 1 }}</small>
                     </div>
                     <h3 class="font-weight-semi-bold mb-4">{{ $pizza->price }}.00 kyats</h3>
                     <p class="mb-4">{{ $pizza->description }}</p>
@@ -98,7 +98,7 @@
                                 <small class="fa fa-star text-warning mr-1"></small>
                                 <small class="fa fa-star text-warning mr-1"></small>
                                 <small class="fa fa-star text-warning mr-1"></small>
-                                <small>{{ $pizzaList->view_count }}</small>
+                                <small><i class="fa-solid fa-eye"></i> {{ $pizzaList->view_count + 1 }}</small>
                             </div>
                         </div>
                     </div>
@@ -113,6 +113,13 @@
 @section('scriptSource')
 <script>
     $(document).ready(function () {
+       $.ajax({
+        type: "get",
+        url: "http://localhost:8000/user/ajax/increase/viewCount",
+        data: {'productId' : $('#pizzaId').val()},
+        dataType: "json",
+       });
+
         $('#addCartBtn').click(function () {
 
             $source = {

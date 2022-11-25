@@ -72,6 +72,11 @@
                                 <i class="fa-solid fa-people-group"></i>User List
                             </a>
                         </li>
+                        <li class="has-sub">
+                            <a href="{{ route("admin#contactList") }}" class="js-arrow">
+                                <i class="fa-solid fa-comments"></i>Contact List
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>

@@ -125,6 +125,7 @@ class UserController extends Controller
         $orders = Order::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->paginate('4');
         return view('user.main.history',compact('orders'));
     }
+
     //private function session
     private function passwordValidationCheck($request)
     {

@@ -68,6 +68,14 @@ class AjaxController extends Controller
               ->where('id',$request->cartId)
               ->delete();
     }
+
+    public function increaseViewCount(Request $request){
+        $pizza = Product::where('id',$request->productId)->first();
+        $viewCount =[
+            'view_count' => $pizza->view_count + 1
+        ];
+        Product::where('id',$request->productId)->update($viewCount);
+    }
     //get Order Data
     private function getOrderData($request){
         return [

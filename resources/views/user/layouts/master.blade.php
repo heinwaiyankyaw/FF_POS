@@ -50,7 +50,7 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{ route('user#home') }}" class="nav-item nav-link">Home</a>
                             <a href="{{ route('user#cartList') }}" class="nav-item nav-link">My Cart</a>
-                            <a href="#" class="nav-item nav-link">Contact</a>
+                            <a href="{{ route('user#contactCreatePage') }}" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                             <a href="" class="btn px-0 ml-3 text-uppercase text-white">

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\User\AjaxController;
@@ -79,6 +80,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('list',[UserController::class,'userList'])->name('admin#userList');
             Route::get('change/userRole',[UserController::class,'changeUserRole'])->name('admin#changeUserRole');
         });
+
+        Route::prefix('contacts')->group(function(){
+            Route::get('list',[ContactController::class,'contactList'])->name('admin#contactList');
+            Route::get('delete/{id}',[ContactController::class,'contactDelete'])->name('admin#contactDelete');
+        });
     });
 
     //user
@@ -115,6 +121,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('order',[AjaxController::class,'order'])->name('ajax#controller');
             Route::get('clear/cart',[AjaxController::class,'clearCart'])->name('ajax#clearCart');
             Route::get('clear/current/product',[AjaxController::class,'clearCurrentProduct'])->name('ajax#clearCurrentProduct');
+            Route::get('increase/viewCount',[AjaxController::class,'increaseViewCount'])->name('ajax#increaseViewCount');
+        });
+
+        Route::prefix('contact')->group(function () {
+            Route::get('create',[ContactController::class,'contactCreatePage'])->name('user#contactCreatePage');
+            Route::post('create',[ContactController::class,'contactCreate'])->name('user#contactCreat');
         });
     });
 
