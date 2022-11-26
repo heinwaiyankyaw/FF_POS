@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h3 class="text-center title-2">Admin Profile</h3>
+                                <h3 class="text-center title-2 text-uppercase">{{ Auth::user()->name }} Info</h3>
                             </div>
                             <hr>
                             <form action="{{ route('user#accountUpdate',Auth::user()->id) }}" method="post" enctype="multipart/form-data">
@@ -25,7 +25,11 @@
                                 <div class="row">
                                     <div class="col-md-5 offset-md-1">
                                         @if(Auth::user()->image == null)
-                                        <img src="{{ asset('image/default_user.png') }}" alt="" class="img-thumbnail shadow-sm">
+                                            @if(Auth::user()->gender == 'female')
+                                            <img src="{{ asset('image/default_female.jpg') }}" alt="" class="img-thumbnail shadow-sm">
+                                            @else
+                                            <img src="{{ asset('image/default_user.png') }}" alt="" class="img-thumbnail shadow-sm">
+                                            @endif
                                         @else
                                         <img src="{{ asset('storage/'.Auth::user()->image) }}" alt="John Doe" class="img-thumbnail shadow-sm" />
                                         @endif
@@ -70,6 +74,13 @@
                                             @error('phone')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label mb-1">Gender</label>
+                                            <select name="gender" id="gender" class="form-control">
+                                                <option value="male" @if(Auth::user()->gender =="male") Selected @endif>Male</option>
+                                                <option value="female" @if(Auth::user()->gender =="female") Selected @endif>Female</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label mb-1">Role</label>

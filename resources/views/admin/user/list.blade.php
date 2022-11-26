@@ -26,10 +26,8 @@
                         <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>Address</th>
                         <th>Role</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="dataList">
@@ -47,16 +45,27 @@
                             <img src="{{ asset('storage/'.$user->image) }}" alt="userImg" class="img-thumbnail shadow-sm" style="width:50px; height:50px;">
                             @endif
                         </td>
-                        <td class="col-2">{{ $user->name }}</td>
-                        <td class="col-1">{{ $user->email }}</td>
-                        <td>{{ $user->gender }}</td>
-                        <td>{{ $user->phone }}</td>
-                        <td class="col-1">{{ $user->address }}</td>
-                        <td class="col-4">
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
                             <select class="form-control statusChange">
                                 <option value="admin" @if($user->role == "admin") selected @endif>Admin</option>
                                 <option value="user" @if($user->role == "user") selected @endif>User</option>
                             </select>
+                        </td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="{{ route('admin#updateUserPage',$user->id) }}">
+                                <button class="item mr-2" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                </a>
+
+                                <a href="{{ route('admin#deleteUser',$user->id) }}">
+                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button></a>
+                            </div>
                         </td>
                     </tr>
                     <tr class="spacer"></tr>

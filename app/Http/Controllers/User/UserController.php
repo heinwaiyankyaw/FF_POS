@@ -26,16 +26,6 @@ class UserController extends Controller
         return view('user.main.home', compact('pizzas', 'categories','cart','orders'));
     }
 
-    public function userList()
-    {
-        $users = User::where('role','user')->paginate('4');
-        return view('admin.user.list',compact('users'));
-    }
-
-    public function changeUserRole(Request $request){
-        logger($request->all());
-        User::where('id',$request->userId)->update(['role' => $request->status]);
-    }
     //change password page
     public function changePasswordPage()
     {
@@ -72,6 +62,7 @@ class UserController extends Controller
     {
         $this->userValidationCheck($request);
         $data = $this->getUserData($request);
+
         if ($request->hasFile('image')) {
             $dbimage = User::where('id', $id)->first();
             $dbimage = $dbimage->image;
@@ -143,7 +134,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'address' => 'required',
             'phone' => 'required',
-            'gender' => 'required',
             'image' => 'mimes:png,jpg,jpeg,svg,gif|file|image',
         ])->validate();
     }

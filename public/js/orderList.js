@@ -85,7 +85,7 @@ $(document).ready(function () {
         $data = {'status': $currentStatus,'orderId': $orderId};
         $.ajax({
             type: "get",
-            url: "http://localhost:8000/orders/ajax/change/status",
+            url: "/orders/ajax/change/status",
             data: $data,
             dataType: "json",
         });

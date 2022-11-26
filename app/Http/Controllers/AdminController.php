@@ -118,6 +118,47 @@ class AdminController extends Controller
         logger($request->all());
         User::where('id',$request->admin_id)->update(['role'=>$request->roleSatus]);
     }
+
+    //control users
+    // user list
+    public function userList()
+    {
+        $users = User::where('role','user')->paginate('4');
+        return view('admin.user.list',compact('users'));
+    }
+
+    // user role
+    public function changeUserRole(Request $request){
+        User::where('id',$request->userId)->update(['role' => $request->status]);
+    }
+
+    public function updateUserPage($id){
+        $user = User::where('id',$id)->first();
+        return view('admin.user.update',compact('user'));
+    }
+
+    public function updateUser($id, Request $request){
+        $this->accountValidationCheck($request);
+        $data = $this->getUserData($request);
+
+        if ($request->hasFile('image')) {
+            $dbimage = User::where('id', $id)->first();
+            $dbimage = $dbimage->image;
+            if ($dbimage != null) {
+                Storage::delete(['public/' . $dbimage]);
+            }
+            $fileName = uniqid() . "_" . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public', $fileName);
+            $data['image'] = $fileName;
+        }
+        User::where('id',$id)->update($data);
+        return redirect()->route('admin#userList');
+    }
+
+    public function deleteUser($id){
+        User::where('id',$id)->delete();
+        return back();
+    }
     //private function session
     private function passwordValidationCheck($request) //password validation check
     {

@@ -9,7 +9,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: "get",
-            url: "http://localhost:8000/admin/role/change",
+            url: "/admin/role/change",
             data: $data,
             dataType: "json",
             success: function (response) {

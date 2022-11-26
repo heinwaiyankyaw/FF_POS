@@ -10,7 +10,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: "get",
-            url: "http://localhost:8000/users/change/userRole",
+            url: "/users/change/userRole",
             data: $data,
             dataType: "json",
         });

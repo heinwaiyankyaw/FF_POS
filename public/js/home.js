@@ -14,7 +14,7 @@ $(document).ready(function () {
         if ($eventOption == "desc") {
             $.ajax({
                 type: "get",
-                url: "http://localhost:8000/user/ajax/pizza/list",
+                url: "/user/ajax/pizza/list",
                 data: {
                     status: "desc",
                 },
@@ -58,7 +58,7 @@ $(document).ready(function () {
         } else if ($eventOption == "asc") {
             $.ajax({
                 type: "get",
-                url: "http://localhost:8000/user/ajax/pizza/list",
+                url: "/user/ajax/pizza/list",
                 data: {
                     status: "asc",
                 },

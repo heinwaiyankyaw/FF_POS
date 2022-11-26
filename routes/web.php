@@ -77,8 +77,11 @@ Route::middleware(['auth'])->group(function () {
 
         // user list
         Route::prefix('users')->group(function(){
-            Route::get('list',[UserController::class,'userList'])->name('admin#userList');
-            Route::get('change/userRole',[UserController::class,'changeUserRole'])->name('admin#changeUserRole');
+            Route::get('list',[AdminController::class,'userList'])->name('admin#userList');
+            Route::get('change/userRole',[AdminController::class,'changeUserRole'])->name('admin#changeUserRole');
+            Route::get('update/{id}',[AdminController::class,'updateUserPage'])->name('admin#updateUserPage');
+            Route::post('update/{id}',[AdminController::class,'updateUser'])->name('admin#updateUser');
+            Route::get('delete/{id}',[AdminController::class,'deleteUser'])->name('admin#deleteUser');
         });
 
         Route::prefix('contacts')->group(function(){
