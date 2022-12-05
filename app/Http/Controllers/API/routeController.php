@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Contact;
-use App\Models\Product;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Contact;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class routeController extends Controller
 {
@@ -24,7 +24,7 @@ class routeController extends Controller
 
     public function categories()
     {
-        $categories = Category::orderBy('created_at','desc')->get();
+        $categories = Category::orderBy('created_at', 'desc')->get();
         $data = [
             'category' => $categories,
         ];
@@ -42,70 +42,80 @@ class routeController extends Controller
         return response()->json($data, 200);
     }
 
-    public function ordersList(){
+    public function ordersList()
+    {
         $order = Order::get();
         $data = [
-            'orders' => $order
+            'orders' => $order,
         ];
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
-    public function createCategory(Request $request){
-       $data = [
-         'name' => $request->name,
-         'created_at' => Carbon::now(),
-         'updated_at' => Carbon::now(),
-       ];
-       $response = Category::create($data);
-        return response()->json($response,201);
+    public function createCategory(Request $request)
+    {
+        $data = [
+            'name' => $request->name,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+        $response = Category::create($data);
+        return response()->json($response, 201);
     }
 
-    public function createContact(Request $request){
-       $data = $this->getContactData($request);
-       Contact::create($data);
-       $contact = Contact::orderBy('created_at','desc')->get();
-       return response()->json($contact,200);
+    public function createContact(Request $request)
+    {
+        $data = $this->getContactData($request);
+        Contact::create($data);
+        $contact = Contact::orderBy('created_at', 'desc')->get();
+        return response()->json($contact, 200);
     }
 
-    public function deleteCategory(Request $request){
-        $getData = Category::where('id',$request->category_id)->first();
+    public function deleteCategory(Request $request)
+    {
+        $getData = Category::where('id', $request->category_id)->first();
         $deleteSuccess = ["status" => true, "message" => "Delete Success"];
         $deleteFail = ["status" => false, "message" => "Failed to Delete. No Data Found."];
-        if(isset($getData)){
-            Category::where('id',$request->category_id)->delete();
-            return response()->json($deleteSuccess,200);
-        }else{
-            return response()->json($deleteFail,200);
+        if (isset($getData)) {
+            Category::where('id', $request->category_id)->delete();
+            return response()->json($deleteSuccess, 200);
+        } else {
+            return response()->json($deleteFail, 200);
         }
 
     }
 
-    public function categoryDetails($id){
+    public function categoryDetails($id)
+    {
         // $id = $request->category_id;
-        $errorMsg =[
+        $errorMsg = [
             "stats" => false,
-            "message" => "Not Match Data in Our Database."
+            "message" => "Not Match Data in Our Database.",
         ];
-        $data = Category::where('id',$id)->first();
+        $data = Category::where('id', $id)->first();
         if (isset($data)) {
-            return response()->json($data,200);
-        }else{
-            return response()->json($errorMsg,500);
+            return response()->json($data, 200);
+        } else {
+            return response()->json($errorMsg, 500);
         }
     }
 
-    public function categoryUpdate(Request $request){
+    public function categoryUpdate(Request $request)
+    {
         $id = $request->category_id;
-        $data = $this->getCategoryData($request);
-        Category::where('id',$id)->update($data);
-        $message = [
-            'message' => 'Update Category was Successed.'
-        ];
-        return response()->json($message,200);
-        // return response()->json($message, 200, $headers);
+        $dbsource = Category::where('id', $id)->first();
+
+        if (isset($dbsource)) {
+            $data = $this->getCategoryData($request);
+            $response = Category::where('id', $id)->update($data);
+            return response()->json(['status'=>true,'message'=>'category update success','category'=>$response,200]);
+        }else{
+            return response()->json(['status'=>false,'message'=>'Update Category does not match.']);
+        }
+
     }
 
-    private function getContactData($request){
+    private function getContactData($request)
+    {
         return [
             'name' => $request->name,
             'email' => $request->email,
@@ -115,10 +125,11 @@ class routeController extends Controller
         ];
     }
 
-    private function getCategoryData($request){
+    private function getCategoryData($request)
+    {
         return [
             'name' => $request->name,
-            'updated_at'=> Carbon::now()
+            'updated_at' => Carbon::now(),
         ];
     }
 }
