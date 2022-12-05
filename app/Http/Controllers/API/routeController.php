@@ -80,6 +80,31 @@ class routeController extends Controller
 
     }
 
+    public function categoryDetails($id){
+        // $id = $request->category_id;
+        $errorMsg =[
+            "stats" => false,
+            "message" => "Not Match Data in Our Database."
+        ];
+        $data = Category::where('id',$id)->first();
+        if (isset($data)) {
+            return response()->json($data,200);
+        }else{
+            return response()->json($errorMsg,500);
+        }
+    }
+
+    public function categoryUpdate(Request $request){
+        $id = $request->category_id;
+        $data = $this->getCategoryData($request);
+        Category::where('id',$id)->update($data);
+        $message = [
+            'message' => 'Update Category was Successed.'
+        ];
+        return response()->json($message,200);
+        // return response()->json($message, 200, $headers);
+    }
+
     private function getContactData($request){
         return [
             'name' => $request->name,
@@ -87,6 +112,13 @@ class routeController extends Controller
             'message' => $request->description,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
+        ];
+    }
+
+    private function getCategoryData($request){
+        return [
+            'name' => $request->name,
+            'updated_at'=> Carbon::now()
         ];
     }
 }
